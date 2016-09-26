@@ -54,8 +54,10 @@ namespace LINQ_Practice
         [TestMethod]
         public void GetAllJuniorInstructorsInCohort3ByLastName()
         {
-            var expected = PracticeData.OrderBy(cohort => cohort.PrimaryInstructor.LastName).ToList();
-            CollectionAssert.AreEqual(expected, null);
+
+            var expected = PracticeData[2].JuniorInstructors.OrderBy(cohort => cohort.LastName).ToList();
+            CollectionAssert.AreEqual(expected, new List<Instructor> { CohortBuilder.Instructor4, CohortBuilder.Instructor1, CohortBuilder.Instructor6 });
+
         }
     }
 }
