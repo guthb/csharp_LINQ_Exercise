@@ -50,21 +50,22 @@ namespace LINQ_Practice
         public void GetAllCohortsWhereAStudentOrInstructorFirstNameIsKate()
         {
             var ActualCohorts = PracticeData.Where(cohort => (cohort.JuniorInstructors.Any(nextcohort => nextcohort.FirstName == "Kate") 
-            || cohort.PrimaryInstructor.FirstName =="Kate") || cohort.Students.Any(s=>s.FirstName == "Kate")).ToList();
+            || cohort.PrimaryInstructor.FirstName =="Kate") 
+            || cohort.Students.Any(s=>s.FirstName == "Kate")).ToList();
             CollectionAssert.AreEqual(ActualCohorts, new List<Cohort> { CohortBuilder.Cohort1, CohortBuilder.Cohort3, CohortBuilder.Cohort4 });
         }
 
         [TestMethod]
         public void GetOldestStudent()
         {
-            var student = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var student = PracticeData.SelectMany(cohort => cohort.Students).OrderBy( age => age.Birthday).First();
             Assert.AreEqual(student, CohortBuilder.Student18);
         }
 
         [TestMethod]
         public void GetYoungestStudent()
         {
-            var student = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var student = PracticeData.SelectMany(cohort => cohort.Students).OrderBy(age => age.Birthday).Last();
             Assert.AreEqual(student, CohortBuilder.Student3);
         }
 
