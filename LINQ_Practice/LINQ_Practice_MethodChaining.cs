@@ -29,21 +29,28 @@ namespace LINQ_Practice
         [TestMethod]
         public void GetAllCohortsWithZacharyZohanAsPrimaryOrJuniorInstructor()
         {
-            var ActualCohorts = PracticeData/*FILL IN LINQ EXPRESSION*/.ToList();
+            var ActualCohorts = PracticeData.Where(cohort => cohort.PrimaryInstructor.FirstName 
+                == "Zachary" && cohort.PrimaryInstructor.LastName == "Zohan" 
+                ||            
+                cohort.JuniorInstructors.Any(nextcohort => nextcohort.FirstName  == "Zachary"
+                && nextcohort.LastName == "Zohan")).ToList();
             CollectionAssert.AreEqual(ActualCohorts, new List<Cohort> { CohortBuilder.Cohort2, CohortBuilder.Cohort3 });
         }
 
         [TestMethod]
         public void GetAllCohortsWhereFullTimeIsFalseAndAllInstructorsAreActive()
         {
-            var ActualCohorts = PracticeData/*FILL IN LINQ EXPRESSION*/.ToList();
+            var ActualCohorts = PracticeData.Where(cohort => (cohort.FullTime == false) 
+              && (cohort.PrimaryInstructor.Active == true) 
+              && (cohort.JuniorInstructors.All(nextcohort => nextcohort.Active == true))).ToList();
             CollectionAssert.AreEqual(ActualCohorts, new List<Cohort> { CohortBuilder.Cohort1 });
         }
 
         [TestMethod]
         public void GetAllCohortsWhereAStudentOrInstructorFirstNameIsKate()
         {
-            var ActualCohorts = PracticeData/*FILL IN LINQ EXPRESSION*/.ToList();
+            var ActualCohorts = PracticeData.Where(cohort => (cohort.JuniorInstructors.Any(nextcohort => nextcohort.FirstName == "Kate") 
+            || cohort.PrimaryInstructor.FirstName =="Kate")).ToList();
             CollectionAssert.AreEqual(ActualCohorts, new List<Cohort> { CohortBuilder.Cohort1, CohortBuilder.Cohort3, CohortBuilder.Cohort4 });
         }
 
