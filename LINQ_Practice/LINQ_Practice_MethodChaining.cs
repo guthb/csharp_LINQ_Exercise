@@ -50,7 +50,7 @@ namespace LINQ_Practice
         public void GetAllCohortsWhereAStudentOrInstructorFirstNameIsKate()
         {
             var ActualCohorts = PracticeData.Where(cohort => (cohort.JuniorInstructors.Any(nextcohort => nextcohort.FirstName == "Kate") 
-            || cohort.PrimaryInstructor.FirstName =="Kate")).ToList();
+            || cohort.PrimaryInstructor.FirstName =="Kate") || cohort.Students.Any(s=>s.FirstName == "Kate")).ToList();
             CollectionAssert.AreEqual(ActualCohorts, new List<Cohort> { CohortBuilder.Cohort1, CohortBuilder.Cohort3, CohortBuilder.Cohort4 });
         }
 
