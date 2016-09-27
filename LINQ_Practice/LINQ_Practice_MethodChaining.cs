@@ -72,7 +72,8 @@ namespace LINQ_Practice
         [TestMethod]
         public void GetAllInactiveStudentsByLastName()
         {
-            var ActualStudents = PracticeData/*FILL IN LINQ EXPRESSION*/.ToList();
+            var ActualStudents = PracticeData.SelectMany(cohort => cohort.Students).Where(nextcohort => 
+            nextcohort.Active != true).OrderBy(name => name.LastName).ToList();
             CollectionAssert.AreEqual(ActualStudents, new List<Student> { CohortBuilder.Student2, CohortBuilder.Student11, CohortBuilder.Student12, CohortBuilder.Student17 });
         }
     }
